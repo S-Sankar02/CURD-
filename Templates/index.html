@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Dashboard</title>
+
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            padding: 40px;
+        }
+
+        .container{
+            max-width: 1100px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1{
+            color: #333;
+            font-size: 32px;
+        }
+
+        .add-btn{
+            background: #28a745;
+            color: white;
+            padding: 12px 18px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .add-btn:hover{
+            background: #218838;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        table thead{
+            background: #007bff;
+            color: white;
+        }
+
+        table th{
+            padding: 16px;
+            text-align: left;
+            font-size: 15px;
+        }
+
+        table td{
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        table tr:hover{
+            background: whitesmoke;
+        }
+
+        .action-buttons{
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn{
+            background: #ffc107;
+            color: black;
+            padding: 8px 14px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .edit-btn:hover{
+            background: #e0a800;
+        }
+
+        .delete-btn{
+            background: #dc3545;
+            color: white;
+            padding: 8px 14px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .delete-btn:hover{
+            background: #c82333;
+        }
+
+        .empty-message{
+            text-align: center;
+            padding: 30px;
+            color: gray;
+            font-size: 18px;
+        }
+    .logout-btn{
+        background: #dc3545;
+        color: white;
+        padding: 12px 18px;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    .logout-btn:hover{
+        background: #c82333;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>User Dashboard</h1>
+
+            <a href="/add" class="add-btn">
+                 Add User
+            </a>
+                    <a href="/logout" class="logout-btn">
+            Logout
+            </a>
+
+        </div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% if users %}
+
+                    {% for user in users %}
+
+                    <tr>
+
+                        <td>{{ user[0] }}</td>
+                        <td>{{ user[1] }}</td>
+                        <td>{{ user[2] }}</td>
+                        <td>{{ user[3] }}</td>
+
+                        <td>
+
+                            <div class="action-buttons">
+
+                                <a href="/edit/{{ user[0] }}" class="edit-btn">
+                                    Edit
+                                </a>
+
+                                <a href="/delete/{{ user[0] }}" class="delete-btn">
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <tr>
+                        <td colspan="5" class="empty-message">
+                            No Users Found
+                        </td>
+                    </tr>
+
+                {% endif %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>

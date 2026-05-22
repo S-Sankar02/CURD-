@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial;
+}
+
+body{
+    background:#f4f6f9;
+    padding:30px;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.header h2{
+    color:#333;
+}
+
+.btn{
+    padding:10px 15px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    text-decoration:none;
+    color:white;
+}
+
+.add-btn{
+    background:#28a745;
+}
+
+.logout-btn{
+    background:#dc3545;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#007bff;
+    color:white;
+}
+
+th, td{
+    padding:12px;
+    text-align:left;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#f9f9f9;
+}
+
+.action a{
+    margin-right:10px;
+    text-decoration:none;
+    padding:6px 10px;
+    border-radius:5px;
+    font-size:13px;
+}
+
+.edit{
+    background:#ffc107;
+    color:black;
+}
+
+.delete{
+    background:#dc3545;
+    color:white;
+}
+
+.badge{
+    padding:4px 8px;
+    border-radius:5px;
+    font-size:12px;
+}
+
+.admin{
+    background:#28a745;
+    color:white;
+}
+
+.user{
+    background:#6c757d;
+    color:white;
+}
+
+</style>
+
+</head>
+
+<body>
+    <script>
+function showToast(message, type="success") {
+
+    const toast = document.getElementById("toast");
+
+    toast.innerText = message;
+    toast.className = "toast show " + type;
+
+    setTimeout(() => {
+        toast.className = "toast";
+    }, 3000);
+}
+</script>
+
+<div class="container">
+
+    <div class="header">
+
+        <h2>Admin Dashboard</h2>
+
+        <div>
+            <a href="/add" class="btn add-btn">Add User</a>
+            <a href="/logout" class="btn logout-btn">Logout</a>
+        </div>
+
+    </div>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for user in users %}
+
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[3] }}</td>
+
+                <td>
+                    {% if user[5] == 'admin' %}
+                        <span class="badge admin">Admin</span>
+                    {% else %}
+                        <span class="badge user">User</span>
+                    {% endif %}
+                </td>
+
+                <td class="action">
+
+                    <a href="/edit/{{ user[0] }}" class="edit">Edit</a>
+                    <a href="/delete/{{ user[0] }}" class="delete">Delete</a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>
